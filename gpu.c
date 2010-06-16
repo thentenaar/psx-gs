@@ -351,7 +351,7 @@ int32_t GPUconfigure() {
 		home  = calloc(sizeof(char),ENV_VAR_SIZE("HOME"));
 
 		snprintf(path,strlen(getenv("HOME")) + strlen(config_path) + 2,"%s/%s",getenv("HOME"),config_path);
-		snprintf(dialog_id,14,"DIALOG_ID=%d",DIALOG_CHEAT);
+		snprintf(dialog_id,14,"DIALOG_ID=%d",DIALOG_CONFIG);
 		snprintf(disp,ENV_VAR_SIZE("DISPLAY"),"DISPLAY=%s",getenv("DISPLAY"));
 		snprintf(xauth,ENV_VAR_SIZE("XAUTHORITY"),"XAUTHORITY=%s",getenv("XAUTHORITY"));
 		snprintf(home,ENV_VAR_SIZE("HOME"),"HOME=%s",getenv("HOME"));
@@ -382,7 +382,7 @@ void GPUabout() {
 		home  = calloc(sizeof(char),ENV_VAR_SIZE("HOME"));
 
 		snprintf(path,strlen(getenv("HOME")) + strlen(config_path) + 2,"%s/%s",getenv("HOME"),config_path);
-		snprintf(dialog_id,14,"DIALOG_ID=%d",DIALOG_CHEAT);
+		snprintf(dialog_id,14,"DIALOG_ID=%d",DIALOG_ABOUT);
 		snprintf(disp,ENV_VAR_SIZE("DISPLAY"),"DISPLAY=%s",getenv("DISPLAY"));
 		snprintf(xauth,ENV_VAR_SIZE("XAUTHORITY"),"XAUTHORITY=%s",getenv("XAUTHORITY"));
 		snprintf(home,ENV_VAR_SIZE("HOME"),"HOME=%s",getenv("HOME"));
