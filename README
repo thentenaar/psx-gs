@@ -23,7 +23,7 @@ Have fun,
 Tim
 
 
-Release notes
+Release Notes / Changelog
 
 	1.0b	1/29/2008
 		
@@ -34,5 +34,12 @@ Release notes
 		the cheats dialog is rudamentary, I know, but it does
 		the job. 
 
+		6/16/2010
 
-		
+		Integrated changes sent to me by Brandon Barnes <winterknight@nerdshack.com>.
+		Thanks, Brandon!
+
+		This fixes an issue where for some reason, the initial state isn't always initialized
+		(e.g. GPUinit() isn't always called, which is likely a bug in the emulator.)
+
+

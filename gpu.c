@@ -23,7 +23,9 @@ static const char *config_path = ".epsxe/cfg/gsconfig";
 
 /* PSEmu Constants and callbacks */
 static const char *libname = "PSX-GS";
-static const char *libinfo = "PSX-GS\nCopyright (C) 2008-2010 Tim Hentenaar <tim@hentenaar.com>\nLicensed under the GNU General Public License (v2)";
+static const char *libinfo = "PSX-GS\n"
+                             "Copyright (C) 2008-2010 Tim Hentenaar <tim@hentenaar.com>\n"
+                             "Licensed under the GNU General Public License (v2)";
 
 const char *PSEgetLibName() {
 	return libname;
@@ -294,6 +296,8 @@ void GPUupdateLace() {
 	if (state->gpu.update_lace) state->gpu.update_lace();
 }
 
+#define ENV_VAR_SIZE(X) (strlen(getenv(X)) + strlen(X) + 2)
+
 void GPUkeypressed(uint16_t key) {
 	pid_t pid = 0; int status; char dialog_id[14], *disp, *xauth, *path, *home;
 	char *nenv[] = { NULL, NULL, NULL, NULL, NULL }; gs_code_t *tmp;
@@ -305,18 +309,21 @@ void GPUkeypressed(uint16_t key) {
 		serialize_state(state);
 		if (!(pid = vfork())) {
 			path  = calloc(sizeof(char),strlen(getenv("HOME")) + strlen(config_path) + 2);
-			disp  = calloc(sizeof(char),strlen(getenv("DISPLAY")) + 9);
-			xauth = calloc(sizeof(char),strlen(getenv("XAUTHORITY")) + 12);
-			home  = calloc(sizeof(char),strlen(getenv("HOME")) + 6);
+			disp  = calloc(sizeof(char),ENV_VAR_SIZE("DISPLAY"));
+			xauth = calloc(sizeof(char),ENV_VAR_SIZE("XAUTHORITY"));
+			home  = calloc(sizeof(char),ENV_VAR_SIZE("HOME"));
+
 			snprintf(path,strlen(getenv("HOME")) + strlen(config_path) + 2,"%s/%s",getenv("HOME"),config_path);
 			snprintf(dialog_id,14,"DIALOG_ID=%d",DIALOG_CHEAT);
-			snprintf(disp,strlen(getenv("DISPLAY")) + 9,"DISPLAY=%s",getenv("DISPLAY"));
-			snprintf(xauth,strlen(getenv("XAUTHORITY")) + 12,"XAUTHORITY=%s",getenv("XAUTHORITY"));
-			snprintf(home,strlen(getenv("HOME")) + 6,"HOME=%s",getenv("HOME"));
+			snprintf(disp,ENV_VAR_SIZE("DISPLAY"),"DISPLAY=%s",getenv("DISPLAY"));
+			snprintf(xauth,ENV_VAR_SIZE("XAUTHORITY"),"XAUTHORITY=%s",getenv("XAUTHORITY"));
+			snprintf(home,ENV_VAR_SIZE("HOME"),"HOME=%s",getenv("HOME"));
+
 			nenv[0] = dialog_id;
 			nenv[1] = disp;
 			nenv[2] = xauth;
 			nenv[3] = home;
+
 			execve(path,NULL,nenv);
 			free(path); free(disp); free(xauth); free(home);
 			exit(EXIT_FAILURE);
@@ -331,23 +338,29 @@ void GPUkeypressed(uint16_t key) {
 int32_t GPUconfigure() {
 	pid_t pid = 0; int status; char dialog_id[14], *disp, *xauth, *path, *home;
 	char *nenv[] = { NULL, NULL, NULL, NULL, NULL };
+
+	/* Attempt to initialize state, and return -1 on failure. */
+	if (!state) GPUinit();
 	if (!state) return -1;
 
 	serialize_state(state);
 	if (!(pid = vfork())) {
 		path  = calloc(sizeof(char),strlen(getenv("HOME")) + strlen(config_path) + 2);
-		disp  = calloc(sizeof(char),strlen(getenv("DISPLAY")) + 9);
-		xauth = calloc(sizeof(char),strlen(getenv("XAUTHORITY")) + 12);
-		home  = calloc(sizeof(char),strlen(getenv("HOME")) + 6);
+		disp  = calloc(sizeof(char),ENV_VAR_SIZE("DISPLAY"));
+		xauth = calloc(sizeof(char),ENV_VAR_SIZE("XAUTHORITY"));
+		home  = calloc(sizeof(char),ENV_VAR_SIZE("HOME"));
+
 		snprintf(path,strlen(getenv("HOME")) + strlen(config_path) + 2,"%s/%s",getenv("HOME"),config_path);
-		snprintf(dialog_id,14,"DIALOG_ID=%d",DIALOG_CONFIG);
-		snprintf(disp,strlen(getenv("DISPLAY")) + 9,"DISPLAY=%s",getenv("DISPLAY"));
-		snprintf(xauth,strlen(getenv("XAUTHORITY")) + 12,"XAUTHORITY=%s",getenv("XAUTHORITY"));
-		snprintf(home,strlen(getenv("HOME")) + 6,"HOME=%s",getenv("HOME"));
+		snprintf(dialog_id,14,"DIALOG_ID=%d",DIALOG_CHEAT);
+		snprintf(disp,ENV_VAR_SIZE("DISPLAY"),"DISPLAY=%s",getenv("DISPLAY"));
+		snprintf(xauth,ENV_VAR_SIZE("XAUTHORITY"),"XAUTHORITY=%s",getenv("XAUTHORITY"));
+		snprintf(home,ENV_VAR_SIZE("HOME"),"HOME=%s",getenv("HOME"));
+
 		nenv[0] = dialog_id;
 		nenv[1] = disp;
 		nenv[2] = xauth;
 		nenv[3] = home;
+
 		execve(path,NULL,nenv);
 		free(path); free(disp); free(xauth); free(home);
 		exit(EXIT_FAILURE);
@@ -364,18 +377,21 @@ void GPUabout() {
 	serialize_state(state);
 	if (!(pid = vfork())) {
 		path  = calloc(sizeof(char),strlen(getenv("HOME")) + strlen(config_path) + 2);
-		disp  = calloc(sizeof(char),strlen(getenv("DISPLAY")) + 9);
-		xauth = calloc(sizeof(char),strlen(getenv("XAUTHORITY")) + 12);
-		home  = calloc(sizeof(char),strlen(getenv("HOME")) + 6);
+		disp  = calloc(sizeof(char),ENV_VAR_SIZE("DISPLAY"));
+		xauth = calloc(sizeof(char),ENV_VAR_SIZE("XAUTHORITY"));
+		home  = calloc(sizeof(char),ENV_VAR_SIZE("HOME"));
+
 		snprintf(path,strlen(getenv("HOME")) + strlen(config_path) + 2,"%s/%s",getenv("HOME"),config_path);
-		snprintf(dialog_id,14,"DIALOG_ID=%d",DIALOG_ABOUT);
-		snprintf(disp,strlen(getenv("DISPLAY")) + 9,"DISPLAY=%s",getenv("DISPLAY"));
-		snprintf(xauth,strlen(getenv("XAUTHORITY")) + 12,"XAUTHORITY=%s",getenv("XAUTHORITY"));
-		snprintf(home,strlen(getenv("HOME")) + 6,"HOME=%s",getenv("HOME"));
+		snprintf(dialog_id,14,"DIALOG_ID=%d",DIALOG_CHEAT);
+		snprintf(disp,ENV_VAR_SIZE("DISPLAY"),"DISPLAY=%s",getenv("DISPLAY"));
+		snprintf(xauth,ENV_VAR_SIZE("XAUTHORITY"),"XAUTHORITY=%s",getenv("XAUTHORITY"));
+		snprintf(home,ENV_VAR_SIZE("HOME"),"HOME=%s",getenv("HOME"));
+
 		nenv[0] = dialog_id;
 		nenv[1] = disp;
 		nenv[2] = xauth;
 		nenv[3] = home;
+
 		execve(path,NULL,nenv);
 		free(path); free(disp); free(xauth); free(home);
 		exit(EXIT_FAILURE);

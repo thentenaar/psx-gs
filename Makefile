@@ -8,6 +8,7 @@ all: libGS.so gsconfig
 libGS.so:
 	@echo "Building libGS.so..."
 	@$(CC) -shared -rdynamic -o libGS.so gpu.c state.c
+	@chmod 0640 libGS.so
 
 gsconfig: 
 	@echo "Building gsconfig..."
