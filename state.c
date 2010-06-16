@@ -26,7 +26,7 @@
 static const char *state_filename = ".epsxe/cfg/libgs.state";
 
 void serialize_state(gs_state_t *state) {
-	gs_code_t *tmp; FILE *fp; int i; uint32_t len; char *tmpc;
+	gs_code_t *tmp; FILE *fp; int i,d; uint32_t len; char *tmpc;
 
 	if (!state) return;
 	if (!(tmpc = calloc(sizeof(char),strlen(getenv("HOME")) + strlen(state_filename) + 2))) return;
@@ -37,52 +37,52 @@ void serialize_state(gs_state_t *state) {
 	free(tmpc); tmpc = NULL;
 
 	/* Dialog key, et al. */
-	fwrite(&state->config.dialog_key,sizeof(uint8_t),1,fp);
-	fwrite(&state->config.cheat_toggle_key,sizeof(uint8_t),1,fp);
-	fwrite(&state->config.real_gpu,sizeof(uint32_t),1,fp);
-	fwrite(&state->config.gpus,sizeof(uint32_t),1,fp);
+	d = fwrite(&state->config.dialog_key,sizeof(uint8_t),1,fp);
+	d = fwrite(&state->config.cheat_toggle_key,sizeof(uint8_t),1,fp);
+	d = fwrite(&state->config.real_gpu,sizeof(uint32_t),1,fp);
+	d = fwrite(&state->config.gpus,sizeof(uint32_t),1,fp);
 
 	/* GPU List and paths */
 	if (state->config.gpu_list) {
 		i = -1;
 		while (state->config.gpu_list[++i]) {
 			len = strlen(state->config.gpu_list[i]);
-			fwrite(&len,sizeof(uint32_t),1,fp);
-			fwrite(state->config.gpu_list[i],len,1,fp);
+			d = fwrite(&len,sizeof(uint32_t),1,fp);
+			d = fwrite(state->config.gpu_list[i],len,1,fp);
 		}
 	
 		i = -1;
 		while (state->config.gpu_paths[++i]) {
 			len = strlen(state->config.gpu_paths[i]);
-			fwrite(&len,sizeof(uint32_t),1,fp);
-			fwrite(state->config.gpu_paths[i],len,1,fp);
+			d = fwrite(&len,sizeof(uint32_t),1,fp);
+			d = fwrite(state->config.gpu_paths[i],len,1,fp);
 		}
 	}
 
 	/* Codes */
 	len = 0; for (tmp=state->codes;tmp;tmp=tmp->next) len++;
-	fwrite(&len,sizeof(uint32_t),1,fp);
+	d = fwrite(&len,sizeof(uint32_t),1,fp);
 
 	for (tmp=state->codes;tmp;tmp=tmp->next) {
-		fwrite(&tmp->address,sizeof(uint32_t),1,fp);
-		fwrite(&tmp->value,sizeof(uint16_t),1,fp);
-		fwrite(&tmp->type,sizeof(uint8_t),1,fp);
-		fwrite(&tmp->active,sizeof(uint8_t),1,fp);
+		d = fwrite(&tmp->address,sizeof(uint32_t),1,fp);
+		d = fwrite(&tmp->value,sizeof(uint16_t),1,fp);
+		d = fwrite(&tmp->type,sizeof(uint8_t),1,fp);
+		d = fwrite(&tmp->active,sizeof(uint8_t),1,fp);
 
 		len = strlen(tmp->code);
-		fwrite(&len,sizeof(uint32_t),1,fp);
-		if (len > 0) fwrite(tmp->code,len,1,fp);
+		d = fwrite(&len,sizeof(uint32_t),1,fp);
+		if (len > 0) d = fwrite(tmp->code,len,1,fp);
 
 		len = strlen(tmp->desc);
-		fwrite(&len,sizeof(uint32_t),1,fp);
-		if (len > 0) fwrite(tmp->desc,len,1,fp);
+		d = fwrite(&len,sizeof(uint32_t),1,fp);
+		if (len > 0) d = fwrite(tmp->desc,len,1,fp);
 	}
 	
 	fclose(fp);
 }
 
 void unserialize_state(gs_state_t *state, int no_gpu_paths) {
-	gs_code_t *tmp, *tmp2 = NULL; FILE *fp; char *buf,*tmpc; uint32_t i,j,k,ltmp=0;
+	gs_code_t *tmp, *tmp2 = NULL; FILE *fp; char *buf,*tmpc; int d; uint32_t i,j,k,ltmp=0;
 
 	if (!state) return;
 	if (!(tmpc = calloc(sizeof(char),strlen(getenv("HOME")) + strlen(state_filename) + 2))) return;
@@ -92,13 +92,13 @@ void unserialize_state(gs_state_t *state, int no_gpu_paths) {
 	free(tmpc); tmpc = NULL;
 
 	/* Dialog key, et al. */
-	fread(&state->config.dialog_key,sizeof(uint8_t),1,fp);
-	fread(&state->config.cheat_toggle_key,sizeof(uint8_t),1,fp);
-	fread(&state->config.real_gpu,sizeof(uint32_t),1,fp);
+	d = fread(&state->config.dialog_key,sizeof(uint8_t),1,fp);
+	d = fread(&state->config.cheat_toggle_key,sizeof(uint8_t),1,fp);
+	d = fread(&state->config.real_gpu,sizeof(uint32_t),1,fp);
 	if (!no_gpu_paths) {
-		fread(&state->config.gpus,sizeof(uint32_t),1,fp);
+		d    = fread(&state->config.gpus,sizeof(uint32_t),1,fp);
 		ltmp = state->config.gpus;
-	} else fread(&ltmp,sizeof(uint32_t),1,fp);
+	} else d = fread(&ltmp,sizeof(uint32_t),1,fp);
 
 	/* GPU List and paths */
 	if (state->config.gpus > 0 || ltmp > 0) {
@@ -133,9 +133,9 @@ void unserialize_state(gs_state_t *state, int no_gpu_paths) {
 
 		for (j=0;j<2;j++) {
 			for (i=0;i<ltmp;i++) {
-				k = 0; fread(&k,sizeof(uint32_t),1,fp);
+				k = 0; d = fread(&k,sizeof(uint32_t),1,fp);
 				if (k > 0 && (buf = calloc(1,k+1))) {
-					fread(buf,k,1,fp);
+					d = fread(buf,k,1,fp);
 					if (!no_gpu_paths)
 						(j ? state->config.gpu_paths : state->config.gpu_list)[i] = buf;
 					else free(buf);
@@ -166,21 +166,21 @@ void unserialize_state(gs_state_t *state, int no_gpu_paths) {
 	if (!feof(fp) && fread(&k,sizeof(uint32_t),1,fp) && k > 0) {
 		for (i=0;i<k;i++) {
 			tmp = calloc(sizeof(gs_code_t),1);
-			fread(&tmp->address,sizeof(uint32_t),1,fp);
-			fread(&tmp->value,sizeof(uint16_t),1,fp);
-			fread(&tmp->type,sizeof(uint8_t),1,fp);
-			fread(&tmp->active,sizeof(uint8_t),1,fp);
+			d = fread(&tmp->address,sizeof(uint32_t),1,fp);
+			d = fread(&tmp->value,sizeof(uint16_t),1,fp);
+			d = fread(&tmp->type,sizeof(uint8_t),1,fp);
+			d = fread(&tmp->active,sizeof(uint8_t),1,fp);
 
-			j = 0; fread(&j,sizeof(uint32_t),1,fp);
+			j = 0; d = fread(&j,sizeof(uint32_t),1,fp);
 			if (j > 0) {
 				tmp->code = calloc(sizeof(char),j+1);
-				fread(tmp->code,j,1,fp);
+				d = fread(tmp->code,j,1,fp);
 			}
 
-			j = 0; fread(&j,sizeof(uint32_t),1,fp);
+			j = 0; d = fread(&j,sizeof(uint32_t),1,fp);
 			if (j > 0) {
 				tmp->desc = calloc(sizeof(char),j+1);
-				fread(tmp->desc,j,1,fp);
+				d = fread(tmp->desc,j,1,fp);
 			}
 			
 			if (!state->codes) {

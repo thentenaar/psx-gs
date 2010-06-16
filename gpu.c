@@ -72,7 +72,7 @@ int32_t GPUinit() {
 	/* Probe for GPUs */
 	gpu = getenv("HOME");
 	tmp = malloc(strlen(gpu) + 17);
-	snprintf(tmp,strlen(gpu) + 17,"%s/.epsxe/plugins",gpu);
+	snprintf(tmp,strlen(gpu) + 17,"%s/.epsxe/plugins",(char *)gpu);
 	if ((dir = opendir(tmp))) {
 		while ((de = readdir(dir))) {
 			if (!strncmp((de->d_name + strlen(de->d_name) - 3),".so",3) || 
