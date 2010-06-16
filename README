@@ -1,4 +1,5 @@
-PSX-GS is a plugin for PSEmu-compatibile emulators to enable the use of Game Shark / Action Replay codes. This is the first of its kind for Linux, as far as I know.
+PSX-GS is a plugin for PSEmu-compatibile emulators to enable the use of Game Shark / Action Replay codes. 
+This is the first of its kind for Linux, as far as I know.
 
 The code is licensed under the GNU General Public License (v2). See the LICENSE file in this directory for the license text.
 
@@ -12,11 +13,13 @@ Note that the plugin depends on the following:
 	* That $HOME/.epsxe/plugins exists
 	* A recent GTK-2 and libc.
 
-To build PSX-GS, simply type 'make clean all install' (or 'make clean install' for the lazy.) For binary builds, simply copy libGS.so to $HOME/.epsxe/plugins and gsconfig to $HOME/.epsxe/cfg .
+To build PSX-GS, simply type 'make clean all install' (or 'make clean install' for the lazy.) 
+For binary builds, simply copy libGS.so to $HOME/.epsxe/plugins and gsconfig to $HOME/.epsxe/cfg .
 
 You can always get the latest version from: http://hentenaar.com.
 
-Be sure to check my blog for information on how to use this plugin, as well as feedback from users: http://hentenaar.com/serendipity/index.php?/archives/19-PSX-GS-1.0-Released.html
+Be sure to check my blog for information on how to use this plugin, as well as feedback from users: 
+http://hentenaar.com/serendipity/index.php?/archives/19-PSX-GS-1.0-Released.html
 
 Have fun,
 
