@@ -13,7 +13,7 @@ Note that the plugin depends on the following:
 	* That $HOME/.epsxe/plugins exists
 	* A recent GTK-2 and libc.
 
-To build PSX-GS, simply type 'make clean all install' (or 'make clean install' for the lazy.) 
+To build PSX-GS, simply type 'make clean all' 
 For binary builds, simply copy libGS.so to $HOME/.epsxe/plugins and gsconfig to $HOME/.epsxe/cfg .
 
 You can always get the latest version from: http://hentenaar.com.
@@ -27,6 +27,24 @@ http://github.com/thentenaar/psx-gs
 Have fun,
 
 Tim
+
+========================================
+
+Installing the binary build
+
+1. Download and unpack ePSXe, and any other plugins you want to use.
+2. Make a symlink from your ePSXe directory to ~/.epsxe:
+	$ ln -sf /path/to/epsxe ~/.epsxe
+3. Move psx-gs into place:
+	$ mv gsconfig ~/.epsxe/cfg/
+	$ mv libGS.so ~/.epsxe/plugins/
+4. Start epsxe
+5. Select Config -> Video
+6. Ensure that "PSX-GS" is shown in the combo box
+7. Press "Test" and ensure that the test is successful.
+8. Press "Configure" to configure PSX-GS.
+
+========================================
 
 
 Release Notes / Changelog
