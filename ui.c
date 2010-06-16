@@ -1,6 +1,6 @@
 /**
  * Gameshark / Action Replay Plugin for PSEmu compatible emulators
- * (C) 2008 Tim Hentenaar <tim@hentenaar.com>
+ * (C) 2008-2010 Tim Hentenaar <tim@hentenaar.com>
  * Released under the GNU General Public License (v2)
  */
 
@@ -15,17 +15,17 @@
 #include <dlfcn.h>
 #include <gtk/gtk.h>
 
-static GtkWidget    *dlg = NULL;	/**< The config dialog */
-static GtkWidget    *combo;		/**< The combo box */
-static GtkWidget    *sk_1;		/**< Shortcut key 1 */
-static GtkWidget    *sk_2;		/**< Shortcut key 2 */
-static GtkWidget    *cheat_dlg = NULL;	/**< The cheat dialog */
-static GtkWidget    *code_tree;		/**< Treeview */
-static GtkWidget    *code_text;		/**< Code text entry */
-static GtkWidget    *desc_text;		/**< Description text entry */
-static GtkListStore *list_store;	/**< Codes list store */
-static GtkWidget    *about;             /**< About dialog */
-static uint16_t      keycode[2];	/**< Keycodes */
+static GtkWidget    *dlg       = NULL; /**< The config dialog */
+static GtkWidget    *combo;            /**< The combo box */
+static GtkWidget    *sk_1;             /**< Shortcut key 1 */
+static GtkWidget    *sk_2;             /**< Shortcut key 2 */
+static GtkWidget    *cheat_dlg = NULL; /**< The cheat dialog */
+static GtkWidget    *code_tree;        /**< Treeview */
+static GtkWidget    *code_text;        /**< Code text entry */
+static GtkWidget    *desc_text;        /**< Description text entry */
+static GtkListStore *list_store;       /**< Codes list store */
+static GtkWidget    *about;            /**< About dialog */
+static uint16_t      keycode[2];       /**< Keycodes */
 
 enum { /* List columns */
 	COL_STATUS = 0,
@@ -63,7 +63,7 @@ static void ui_do_about(gs_state_t *state) {
 		gtk_about_dialog_set_program_name(GTK_ABOUT_DIALOG(about),"PSX-GS");
 		gtk_about_dialog_set_version(GTK_ABOUT_DIALOG(about),(const char *)version);
 		gtk_about_dialog_set_copyright(GTK_ABOUT_DIALOG(about),
-			"Copyright (C) 2008 Tim Hentenaar <tim@hentenaar.com>.\nLicensed under the GNU General Public License (v2).\n\n"
+			"Copyright (C) 2008-2010 Tim Hentenaar <tim@hentenaar.com>.\nLicensed under the GNU General Public License (v2).\n\n"
 			"Built on: " __DATE__ " at " __TIME__);
 		gtk_about_dialog_set_website(GTK_ABOUT_DIALOG(about),"http://www.hentenaar.com");
 		g_free(version);
@@ -492,3 +492,4 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
+/* vi:set ts=4: */

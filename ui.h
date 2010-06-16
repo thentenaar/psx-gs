@@ -3,7 +3,7 @@
 
 /**
  * Gameshark / Action Replay Plugin for PSEmu compatible emulators
- * (C) 2008 Tim Hentenaar <tim@hentenaar.com>
+ * (C) 2008-2010 Tim Hentenaar <tim@hentenaar.com>
  * Released under the GNU General Public License (v2)
  */
 
@@ -14,3 +14,5 @@ enum { /* Dialog types */
 };
 
 #endif	/* UI_H */
+
+/* vi:set ts=4: */

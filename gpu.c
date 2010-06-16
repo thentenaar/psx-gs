@@ -1,6 +1,6 @@
 /**
  * Gameshark / Action Replay Plugin for PSEmu compatible emulators
- * (C) 2008 Tim Hentenaar <tim@hentenaar.com>
+ * (C) 2008-2010 Tim Hentenaar <tim@hentenaar.com>
  * Released under the GNU General Public License (v2)
  */
 
@@ -23,7 +23,7 @@ static const char *config_path = ".epsxe/cfg/gsconfig";
 
 /* PSEmu Constants and callbacks */
 static const char *libname = "PSX-GS";
-static const char *libinfo = "PSX-GS\nCopyright (C) 2008 Tim Hentenaar <tim@hentenaar.com>\nLicensed under the GNU General Public License (v2)";
+static const char *libinfo = "PSX-GS\nCopyright (C) 2008-2010 Tim Hentenaar <tim@hentenaar.com>\nLicensed under the GNU General Public License (v2)";
 
 const char *PSEgetLibName() {
 	return libname;
@@ -469,4 +469,4 @@ int32_t GPUgetMode() {
 	return 0;
 }
 
-
+/* vi:set ts=4: */

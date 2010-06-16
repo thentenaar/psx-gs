@@ -1,6 +1,6 @@
 PSX-GS is a plugin for PSEmu-compatibile emulators to enable the use of Game Shark / Action Replay codes. This is the first of its kind for Linux, as far as I know.
 
-The code is licensed under the GNU General Public License (v2).
+The code is licensed under the GNU General Public License (v2). See the LICENSE file in this directory for the license text.
 
 This is the 1.0 beta release version. All features are implemented for the
 most part. I've only tested this with a 16-bit continuous write code (i.e.

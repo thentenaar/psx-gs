@@ -2,7 +2,7 @@
 #define GS_H
 /**
  * Gameshark / Action Replay Plugin for PSEmu compatible emulators
- * (C) 2008 Tim Hentenaar <tim@hentenaar.com>
+ * (C) 2008-2010 Tim Hentenaar <tim@hentenaar.com>
  * Released under the GNU General Public License (v2)
  */
 
@@ -107,3 +107,5 @@ typedef struct state {
 } gs_state_t;
 
 #endif	/* GS_H */
+
+/* vi:set ts=4: */
