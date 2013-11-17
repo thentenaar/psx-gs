@@ -20,6 +20,7 @@ clean:
 
 install: libGS.so gsconfig
 	@mkdir -p ~/.epsxe/cfg
+	@mkdir -p ~/.epsxe/plugins
 	@install -m0755 libGS.so ~/.epsxe/plugins/libGS.so
 	@install -m0755 gsconfig ~/.epsxe/cfg/gsconfig
 

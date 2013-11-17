@@ -3,7 +3,7 @@
 
 /**
  * Gameshark / Action Replay Plugin for PSEmu compatible emulators
- * (C) 2008-2010 Tim Hentenaar <tim@hentenaar.com>
+ * Copyright (C) 2008-2013 Tim Hentenaar <tim@hentenaar.com>
  * Released under the GNU General Public License (v2)
  */
 

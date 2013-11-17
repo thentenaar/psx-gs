@@ -13,13 +13,15 @@ Note that the plugin depends on the following:
 	* That $HOME/.epsxe/plugins exists
 	* A recent GTK-2 and libc.
 
-To build PSX-GS, simply type 'make clean all' 
+To build PSX-GS, simply type 'make clean all'. There's also a 'make install' target which will install libGS.so and
+gsconfig to ~/.epsxe on your behalf.
+
 For binary builds, simply copy libGS.so to $HOME/.epsxe/plugins and gsconfig to $HOME/.epsxe/cfg .
 
 You can always get the latest version from: http://hentenaar.com.
 
 Be sure to check my blog for information on how to use this plugin, as well as feedback from users: 
-http://hentenaar.com/serendipity/index.php?/archives/19-PSX-GS-1.0-Released.html
+http://hentenaar.com/psx-gs-10-released
 
 I've now moved the code to GitHub:
 http://github.com/thentenaar/psx-gs
@@ -66,4 +68,7 @@ Release Notes / Changelog
 		This fixes an issue where for some reason, the initial state isn't always initialized
 		(e.g. GPUinit() isn't always called, which is likely a bug in the emulator.)
 
+		11/17/2013
+
+		I've tested PSX-GS with epsxe 1.9, and it appears to work.
 
